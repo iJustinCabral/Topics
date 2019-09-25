@@ -1,2 +1,2 @@
-# Topics
+# Tetris
 Object Oriented Java Project
