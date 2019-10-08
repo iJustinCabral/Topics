@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=LogInView
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ LogInView\ here.\r\n\r\n\ Justin\ Cabral\r\n\ 1.0.0\r\n
+comment1.params=
+comment1.target=LogInView()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ LogInView\r\n
+comment2.params=action
+comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
+numComments=3
