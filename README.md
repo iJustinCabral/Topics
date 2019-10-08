@@ -1,2 +1,2 @@
-# Tetris
-Object Oriented Java Project
+# Bet++
+Sports Betting Java Project
