@@ -56,8 +56,10 @@ public class LogInView extends Observable implements ActionListener {
         this.frame.setForeground(Color.blue);
         this.frame.setFont(new Font("Serif", Font.BOLD, 20));
         this.frame.setSize(500,300);
+        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.frame.setLayout(null);
         this.frame.setVisible(true);
+        this.frame.setResizable(false);
            
         this.welcomeLabel.setBounds(160,20,300,40);
         this.userNameLabel.setBounds(80,70,200,30);
@@ -90,12 +92,17 @@ public class LogInView extends Observable implements ActionListener {
     public void actionPerformed(ActionEvent action) {
             
         if (action.getSource() == this.signupButton) {
+            
             // Check if user exists, if it does, give error, if not create new account
-          
+             
+            this.userNameTextField.setText("");
+            this.passwordField.setText("");
         }
         else if (action.getSource() == this.loginButton) {
             // Check if the username and password are correct, if yes go to main menu, if not give error
-         
+            
+            MainMenuView menuView = new MainMenuView();
+            this.frame.setVisible(false);
         }
             
     }
