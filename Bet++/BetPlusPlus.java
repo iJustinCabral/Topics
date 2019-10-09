@@ -2,12 +2,12 @@
 /**
  * Write a description of class BetPlusPlus here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * Justin Cabral
+ * 1.0.0
  */
 public class BetPlusPlus
 {
     public static void main(String args[]) {
-        LogInViewController lVC = new LogInViewController();
+        LogInView view = new LogInView();
     }
 }

@@ -11,7 +11,7 @@ public class AccountData
     // instance variables 
     private String username;
     private String password;
-    private double funds;
+    private double balance;
     
     private ArrayList<String> usernames;
     private ArrayList<String> passwords;
@@ -37,12 +37,12 @@ public class AccountData
         return this.password;
     }
     
-    public void setFunds(double funds) {
-        this.funds = funds;
+    public void setBalance(double funds) {
+        this.balance = funds;
     }
     
-    public double getFunds() {
-        return this.funds;
+    public double getBalance() {
+        return this.balance;
     }
 
     /**
@@ -52,7 +52,7 @@ public class AccountData
     {
         this.username = username;
         this.password = password;
-        this.funds = 100.00;   
+        this.balance = 100.00;   
     }
     
     public boolean checkIfUserExists(String username) {
