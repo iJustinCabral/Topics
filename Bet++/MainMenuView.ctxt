@@ -10,4 +10,6 @@ comment3.params=
 comment3.target=void\ setUpViews()
 comment4.params=
 comment4.target=void\ addViews()
-numComments=5
+comment5.params=action
+comment5.target=void\ actionPerformed(java.awt.event.ActionEvent)
+numComments=6
