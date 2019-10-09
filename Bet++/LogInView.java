@@ -21,10 +21,6 @@ public class LogInView extends Observable implements ActionListener {
     private JPasswordField passwordField;
     private AccountData account;
     
-    public void setMessageLabelText(String message) {
-        this.messageLabel.setText(message);
-    }
-    
     /**
      * Constructor for objects of class LogInView
      */
@@ -44,7 +40,7 @@ public class LogInView extends Observable implements ActionListener {
         this.passwordLabel = new JLabel("Password");
         this.messageLabel = new JLabel("");
         this.loginButton = new JButton("Login");
-        this.signupButton = new JButton("Sign-Up");
+        this.signupButton = new JButton("Sign Up");
         this.userNameTextField = new JTextField();
         this.passwordField = new JPasswordField();
         
@@ -97,6 +93,7 @@ public class LogInView extends Observable implements ActionListener {
              
             this.userNameTextField.setText("");
             this.passwordField.setText("");
+            this.messageLabel.setText("Sign up successfull! You can now log in with your account.");
         }
         else if (action.getSource() == this.loginButton) {
             // Check if the username and password are correct, if yes go to main menu, if not give error
