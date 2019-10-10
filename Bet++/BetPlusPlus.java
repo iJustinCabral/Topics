@@ -8,6 +8,6 @@
 public class BetPlusPlus
 {
     public static void main(String args[]) {
-        LogInViewController lVC = new LogInViewController();
+        LogInView lVC = new LogInView();
     }
 }

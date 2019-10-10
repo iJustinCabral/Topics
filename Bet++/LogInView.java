@@ -18,7 +18,7 @@ public class LogInView extends JFrame {
     private JButton signupButton;
     private JTextField userNameTextField;
     private JPasswordField passwordField;
-    
+   
     /**
      * Constructor for objects of class LogInView
      */
@@ -58,6 +58,8 @@ public class LogInView extends JFrame {
         this.frame.add(this.signupButton);
 
     }
+    
+    public JFrame getLogIn(){return this.frame;}
     
     public void actionPerformed(ActionEvent action) {
         
