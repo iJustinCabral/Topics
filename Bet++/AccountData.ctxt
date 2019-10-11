@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=AccountData
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ AccountData\ here.\r\n\r\n\ Justin\ Cabral\r\n\ 1.0.0\r\n
+comment1.params=username
+comment1.target=void\ setUsername(java.lang.String)
+comment1.text=\ Public\ accessor\ /\ mutator\ methods\ \r\n\ \r\n
+comment10.params=
+comment10.target=void\ saveAccountData()
+comment2.params=
+comment2.target=java.lang.String\ getUserName()
+comment3.params=password
+comment3.target=void\ setPassword(java.lang.String)
+comment4.params=
+comment4.target=java.lang.String\ getPassword()
+comment5.params=funds
+comment5.target=void\ setBalance(double)
+comment6.params=
+comment6.target=double\ getBalance()
+comment7.params=username\ password
+comment7.target=AccountData(java.lang.String,\ java.lang.String)
+comment7.text=\r\n\ Constructor\ for\ objects\ of\ class\ AccountData\r\n
+comment8.params=username
+comment8.target=boolean\ checkIfUserExists(java.lang.String)
+comment9.params=password
+comment9.target=boolean\ checkIfPasswordIsCorrect(java.lang.String)
+numComments=11
