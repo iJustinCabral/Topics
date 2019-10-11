@@ -1,4 +1,4 @@
-
+import java.util.*;
 /**
  * Write a description of class AccountData here.
  *
@@ -11,7 +11,11 @@ public class AccountData
     // instance variables 
     private String username;
     private String password;
-    private double funds;
+    private double balance;
+    
+    private ArrayList<String> usernames;
+    private ArrayList<String> passwords;
+    
     
     /** Public accessor / mutator methods 
      * 
@@ -33,12 +37,12 @@ public class AccountData
         return this.password;
     }
     
-    public void setFunds(double funds) {
-        this.funds = funds;
+    public void setBalance(double funds) {
+        this.balance = funds;
     }
     
-    public double getFunds() {
-        return this.funds;
+    public double getBalance() {
+        return this.balance;
     }
 
     /**
@@ -48,7 +52,21 @@ public class AccountData
     {
         this.username = username;
         this.password = password;
-        this.funds = 100.00;   
+        this.balance = 100.00;   
+    }
+    
+    public boolean checkIfUserExists(String username) {
+        // Check if username exists by reading the text file, assinging usernames to arraylist, and search the list
+        return true;
+    }
+    
+    public boolean checkIfPasswordIsCorrect(String password) {
+        // Check if password is correct by reading the text file, assinging passwords to arraylist, and search the list
+        return true;
+    }
+    
+    public void saveAccountData() {
+        // Write account data to file
     }
 
     
