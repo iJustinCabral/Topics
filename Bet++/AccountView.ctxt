@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=AccountView
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ AccountView\ here.\r\n\r\n\ Jonathan\ Duran\r\n\ 10/8/19\r\n
-comment1.params=
-comment1.target=AccountView()
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ AccountView\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ AccountView\ here.\n\n\ Jonathan\ Duran\n\ 10/8/19\n
+comment1.params=mainmenu\ usr
+comment1.target=AccountView(javax.swing.JFrame,\ AccountData)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ AccountView\n
 comment2.params=
 comment2.target=javax.swing.JFrame\ getAccView()
 comment3.params=action

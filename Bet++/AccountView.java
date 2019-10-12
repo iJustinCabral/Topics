@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 /**
  * Write a description of class AccountView here.
  *
@@ -10,19 +11,24 @@ import java.awt.event.*;
 public class AccountView implements ActionListener
 {
     // instance variables 
-    private JFrame frame;
+    private JFrame frame,main;
     private JLabel userNameLabel, cashLabel,userName,accountBalance;
     private JButton addCashButton,removeCashButton,backButton;
     private JTextArea textArea;
     private double balance;
     private final double MAXBALANCE = 10000000;
     private String labelBalan;
+    private AccountData user;
     /**
      * Constructor for objects of class AccountView
      */
-    public AccountView()
+    public AccountView(JFrame mainmenu, AccountData usr)
     {
-        this.balance = 0.0;
+        this.main = mainmenu;
+        this.user = usr;
+        
+        
+        this.balance = this.user.getBalance();
         String labelBalan = Double.toString(balance);
         
         this.textArea = new JTextArea(5,40);
@@ -30,12 +36,12 @@ public class AccountView implements ActionListener
         this.frame = new JFrame("AccountMenu");
         this.userNameLabel = new JLabel("Username: ");
         this.cashLabel = new JLabel("Account Balance: ");
-        this.userName = new JLabel("John");
+        this.userName = new JLabel(user.getUserName());
         this.accountBalance = new JLabel(labelBalan);
         this.addCashButton = new JButton("Add Funds");
         this.removeCashButton = new JButton("Remove Funds");
         this.backButton = new JButton("Back");
-        this.textArea = new JTextArea();
+        this.textArea = new JTextArea("");
         
         this.frame.setForeground(Color.blue);
         this.frame.setFont(new Font("Serif", Font.BOLD, 20));
@@ -80,31 +86,39 @@ public void actionPerformed(ActionEvent action){
    
     if(action.getSource() == this.addCashButton){
         
-        String text = this.textArea.getText();
-        if(Double.valueOf(text) >=0){
-        if(this.balance + Double.valueOf(text) <= MAXBALANCE-1)
-        this.balance += Double.valueOf(text);}
+        if(this.textArea.getText().equals("")){}
+        else if(Double.valueOf(this.textArea.getText()) >=0){
+        if(this.balance + Double.valueOf(this.textArea.getText()) <= MAXBALANCE-1){
+            this.balance += Double.valueOf(this.textArea.getText());
+            user.setBalance(this.balance);
+        }}
         
         this.labelBalan = Double.toString(this.balance);
         this.accountBalance.setText(this.labelBalan);
+        
+        
     }
     
     else if (action.getSource() == this.removeCashButton){
-        String text = this.textArea.getText();
-        if(this.balance >= 0 && Double.valueOf(text) >=0 && (this.balance - Double.valueOf(text)>=0))
-        this.balance -= Double.valueOf(text);
+        //boolean flag  = Double.toDouble(this.textArea.getText()); 
+        if(this.textArea.getText().equals("") ){}
+        else if(this.balance >= 0 && Double.valueOf(this.textArea.getText()) >=0 && (this.balance - Double.valueOf(this.textArea.getText())>=0)){
+            this.balance -= Double.valueOf(this.textArea.getText());
+            user.setBalance(this.balance);
+        }
         
         
         this.labelBalan = Double.toString(balance);
         this.accountBalance.setText(labelBalan);
-    
+        
+        
     }
     
     else if (action.getSource() == this.backButton){
         
         
         this.frame.setVisible(false);
-        MainMenuView prev = new MainMenuView();
+        new MainMenuView(user);
         this.frame.dispose();
         
     }

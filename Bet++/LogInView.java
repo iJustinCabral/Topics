@@ -19,7 +19,10 @@ public class LogInView extends Observable implements ActionListener {
     private JButton signupButton;
     private JTextField userNameTextField;
     private JPasswordField passwordField;
-    private AccountData account;
+    private AccountData account = new AccountData();
+    private String accountUName;
+    private String accountPass;
+    private double balance; 
     
     /**
      * Constructor for objects of class LogInView
@@ -90,16 +93,32 @@ public class LogInView extends Observable implements ActionListener {
         if (action.getSource() == this.signupButton) {
             
             // Check if user exists, if it does, give error, if not create new account
-             
-            this.userNameTextField.setText("");
-            this.passwordField.setText("");
+            boolean flag = account.checkIfUserExists(this.userNameTextField.getText());
+            boolean flag2 = (this.passwordField.getText().equals("")); 
+            if (flag == false && flag2 == false){
+            account.setUsername(this.userNameTextField.getText());
+            account.setPassword(this.passwordField.getText());
+            account.inputUser(this.account);
             this.messageLabel.setText("Sign up successfull! You can now log in with your account.");
+        }
+            else if (flag2 == true){this.messageLabel.setText("Please input a password");}
+            else{this.messageLabel.setText("There is a current user with same UserName");}
+            
         }
         else if (action.getSource() == this.loginButton) {
             // Check if the username and password are correct, if yes go to main menu, if not give error
-            
-            MainMenuView menuView = new MainMenuView();
+            boolean flag = account.checkIfUserExists(this.userNameTextField.getText());
+            boolean flag2 = account.checkIfPasswordIsCorrect(this.userNameTextField.getText(),this.passwordField.getText());
+            if (flag == true && flag2 == true){
+            MainMenuView menuView = new MainMenuView(this.account);
             this.frame.setVisible(false);
+            this.frame.dispose();
+            }
+            else if(flag == false){this.messageLabel.setText("UserName does not exist");}
+            else{
+            this.messageLabel.setText("Login unsuccessfull! Wrong UserName or Password");
+            }
+            
         }
             
     }
