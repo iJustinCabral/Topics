@@ -18,24 +18,28 @@ public class MainMenuView implements ActionListener
     private JFrame frame;
     private JLabel usernameLabel, balanceLabel, baseballLabel, basketballLabel,footballLabel,hockeyLabel;
     private JButton accountButton, logoutButton, baseballButton, footballButton, basketballButton, hockeyButton;
-
+    private AccountData user;
     /**
      * Constructor for objects of class MainMenuView
      */
-    public MainMenuView()
+    public MainMenuView( AccountData usr)
     {
+        this.user = usr;
+        
         this.createViews();
         this.setUpViews();
         this.addViews();
+        
     }
     
     public void createViews() {
         
+        String userBalance = Double.toString(user.getBalance());
         this.frame = new JFrame("Bet++");
         this.accountButton = new JButton("Account");
         this.logoutButton = new JButton("Log Out");
-        this.usernameLabel = new JLabel("JCabral  : "); // Temporary, will pull from AccountData later
-        this.balanceLabel = new JLabel("$100.00"); // Temporary, will pull from AccountData later
+        this.usernameLabel = new JLabel(user.getUserName()); // Temporary, will pull from AccountData later
+        this.balanceLabel = new JLabel("$"+userBalance); // Temporary, will pull from AccountData later
         this.baseballLabel = new JLabel("Baseball");
         this.basketballLabel = new JLabel("Basketball");
         this.footballLabel = new JLabel("Football");
@@ -100,9 +104,9 @@ public class MainMenuView implements ActionListener
         }
         
         
-        this.usernameLabel.setBounds(420,10,100,30);
+        this.usernameLabel.setBounds(320,10,150,30);
         this.usernameLabel.setFont(new Font("Sans", Font.BOLD, 16));
-        this.balanceLabel.setBounds(500,10,100,30);
+        this.balanceLabel.setBounds(480,10,150,30);
         this.balanceLabel.setFont(new Font("Sans", Font.BOLD, 16));
         
         this.accountButton.addActionListener(this);
@@ -145,12 +149,17 @@ public class MainMenuView implements ActionListener
             
         }
         else if (action.getSource() == this.accountButton) {
+            this.frame.setVisible(false);
+            AccountView accountView = new AccountView(this.frame , this.user);
+            this.frame.dispose();
             
         }
         else if (action.getSource() == this.logoutButton) {
             
-            LogInView loginView = new LogInView();
+            
             this.frame.setVisible(false);
+            new LogInView();
+            this.frame.dispose();
             
         }
     }
