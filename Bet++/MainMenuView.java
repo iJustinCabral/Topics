@@ -58,6 +58,8 @@ public class MainMenuView implements ActionListener
         this.frame.setLayout(null);
         this.frame.setVisible(true);
         this.frame.setResizable(false);
+        this.frame.setLocationRelativeTo(null);
+
         
         this.accountButton.setBounds(10,10,100,30);
         this.logoutButton.setBounds(100,10,100,30);
@@ -143,7 +145,8 @@ public class MainMenuView implements ActionListener
             
         }
         else if (action.getSource() == this.footballButton) {
-            
+            BetView betView = new BetView();
+            this.frame.setVisible(false);
         }
         else if (action.getSource() == this.hockeyButton) {
             
