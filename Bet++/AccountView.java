@@ -34,10 +34,10 @@ public class AccountView implements ActionListener
         this.textArea = new JTextArea(5,40);
      
         this.frame = new JFrame("AccountMenu");
-        this.userNameLabel = new JLabel("Username: ");
+        this.userNameLabel = new JLabel("Username: " + this.user.getUserName());
         this.cashLabel = new JLabel("Account Balance: ");
         this.userName = new JLabel(user.getUserName());
-        this.accountBalance = new JLabel(labelBalan);
+        this.accountBalance = new JLabel("$" + String.format("%.2f", this.balance));
         this.addCashButton = new JButton("Add Funds");
         this.removeCashButton = new JButton("Remove Funds");
         this.backButton = new JButton("Back");
@@ -48,6 +48,8 @@ public class AccountView implements ActionListener
         this.frame.setSize(500,300);
         this.frame.setLayout(null);
         this.frame.setVisible(true);
+        this.frame.setLocationRelativeTo(null);
+
         
         //Labels
         this.userNameLabel.setBounds(80,70,200,30);
@@ -60,7 +62,7 @@ public class AccountView implements ActionListener
         this.removeCashButton.setBounds(250,150,150,30);
         this.backButton.setBounds(10,10,100,30);
         //TextArea
-        this.textArea.setBounds(150,190,150,30);
+        this.textArea.setBounds(160,190,150,20);
         
         this.frame.add(this.userNameLabel);
         this.frame.add(this.cashLabel);
@@ -91,12 +93,11 @@ public void actionPerformed(ActionEvent action){
         if(this.balance + Double.valueOf(this.textArea.getText()) <= MAXBALANCE-1){
             this.balance += Double.valueOf(this.textArea.getText());
             user.setBalance(this.balance);
+            this.textArea.setText("");
         }}
-        
-        this.labelBalan = Double.toString(this.balance);
-        this.accountBalance.setText(this.labelBalan);
-        
-        
+
+        this.accountBalance.setText("$" + String.format("%.2f", this.balance));
+
     }
     
     else if (action.getSource() == this.removeCashButton){
@@ -105,11 +106,11 @@ public void actionPerformed(ActionEvent action){
         else if(this.balance >= 0 && Double.valueOf(this.textArea.getText()) >=0 && (this.balance - Double.valueOf(this.textArea.getText())>=0)){
             this.balance -= Double.valueOf(this.textArea.getText());
             user.setBalance(this.balance);
+            this.textArea.setText("");
         }
         
         
-        this.labelBalan = Double.toString(balance);
-        this.accountBalance.setText(labelBalan);
+        this.accountBalance.setText("$" + String.format("%.2f", this.balance));
         
         
     }

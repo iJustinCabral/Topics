@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 /**
  * Write a description of class MainMenuView here.
  *
- * Justin Cabral
+ * Justin Cabral/Jonathan Duran
  * 1.0.0
  */
 
@@ -16,9 +16,11 @@ public class MainMenuView implements ActionListener
 {
 
     private JFrame frame;
-    private JLabel usernameLabel, balanceLabel, baseballLabel, basketballLabel,footballLabel,hockeyLabel;
+    private JLabel accountLabel, baseballLabel, basketballLabel,footballLabel,hockeyLabel;
     private JButton accountButton, logoutButton, baseballButton, footballButton, basketballButton, hockeyButton;
     private AccountData user;
+    private SportsData sportsData;
+    private final int BASEBALL = 0, BASKETBALL = 1, FOOTBALL = 2, HOCKEY = 3;
     /**
      * Constructor for objects of class MainMenuView
      */
@@ -32,14 +34,24 @@ public class MainMenuView implements ActionListener
         
     }
     
-    public void createViews() {
+     public MainMenuView(AccountData usr, SportsData sportsData)
+    {
+        this.user = usr;
+        this.sportsData = sportsData;
+        
+        this.createViews();
+        this.setUpViews();
+        this.addViews();
+        
+    }
+    
+    private void createViews() {
         
         String userBalance = Double.toString(user.getBalance());
         this.frame = new JFrame("Bet++");
         this.accountButton = new JButton("Account");
         this.logoutButton = new JButton("Log Out");
-        this.usernameLabel = new JLabel(user.getUserName()); // Temporary, will pull from AccountData later
-        this.balanceLabel = new JLabel("$"+userBalance); // Temporary, will pull from AccountData later
+        this.accountLabel = new JLabel(user.getUserName() + " : "+ "$" + String.format("%.2f", user.getBalance())); // Temporary, will pull from AccountData later
         this.baseballLabel = new JLabel("Baseball");
         this.basketballLabel = new JLabel("Basketball");
         this.footballLabel = new JLabel("Football");
@@ -50,7 +62,7 @@ public class MainMenuView implements ActionListener
         this.hockeyButton = new JButton();
     }
     
-    public void setUpViews() {
+    private void setUpViews() {
         
         this.frame.setForeground(Color.blue);
         this.frame.setFont(new Font("Serif", Font.BOLD, 20));
@@ -73,43 +85,13 @@ public class MainMenuView implements ActionListener
         this.hockeyLabel.setBounds(436,200,100,30);
         
         
-        try {
-            Image image = ImageIO.read(getClass().getResource("./resources/MLB.png"));
-            Image scaledImage = image.getScaledInstance(90,90, java.awt.Image.SCALE_SMOOTH);
-            this.baseballButton.setIcon(new ImageIcon(scaledImage));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+        processImageForButton(this.baseballButton, "./resources/MLB.png");
+        processImageForButton(this.basketballButton, "./resources/NBA.png");
+        processImageForButton(this.footballButton, "./resources/NFL.png");
+        processImageForButton(this.hockeyButton, "./resources/NHL.png");
         
-        try {
-            Image image = ImageIO.read(getClass().getResource("./resources/NBA.png"));
-            Image scaledImage = image.getScaledInstance(90,90, java.awt.Image.SCALE_SMOOTH);
-            this.basketballButton.setIcon(new ImageIcon(scaledImage));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        
-        try {
-            Image image = ImageIO.read(getClass().getResource("./resources/NFL.png"));
-            Image scaledImage = image.getScaledInstance(90,90, java.awt.Image.SCALE_SMOOTH);
-            this.footballButton.setIcon(new ImageIcon(scaledImage));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        
-        try {
-            Image image = ImageIO.read(getClass().getResource("./resources/NHL.png"));
-            Image scaledImage = image.getScaledInstance(90,90, java.awt.Image.SCALE_SMOOTH);
-            this.hockeyButton.setIcon(new ImageIcon(scaledImage));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        
-        
-        this.usernameLabel.setBounds(320,10,150,30);
-        this.usernameLabel.setFont(new Font("Sans", Font.BOLD, 16));
-        this.balanceLabel.setBounds(480,10,150,30);
-        this.balanceLabel.setFont(new Font("Sans", Font.BOLD, 16));
+        this.accountLabel.setBounds(420,10,150,30);
+        this.accountLabel.setFont(new Font("Sans", Font.BOLD, 16));
         
         this.accountButton.addActionListener(this);
         this.logoutButton.addActionListener(this);
@@ -119,12 +101,11 @@ public class MainMenuView implements ActionListener
         this.hockeyButton.addActionListener(this);
     }
     
-    public void addViews() {
+    private void addViews() {
         
         this.frame.add(this.accountButton);
         this.frame.add(this.logoutButton);
-        this.frame.add(this.usernameLabel);
-        this.frame.add(this.balanceLabel);
+        this.frame.add(this.accountLabel);
         this.frame.add(this.baseballButton);
         this.frame.add(this.basketballButton);
         this.frame.add(this.footballButton);
@@ -139,17 +120,20 @@ public class MainMenuView implements ActionListener
     public void actionPerformed(ActionEvent action) {
        
         if (action.getSource() == this.baseballButton) {
-        
+            BetView betView = new BetView(this.user, BASEBALL);
+            this.frame.setVisible(false);
         }
         else if (action.getSource() == this.basketballButton) {
-            
+            BetView betView = new BetView(this.user, BASKETBALL);
+            this.frame.setVisible(false);
         }
         else if (action.getSource() == this.footballButton) {
-            BetView betView = new BetView();
+            BetView betView = new BetView(this.user, FOOTBALL);
             this.frame.setVisible(false);
         }
         else if (action.getSource() == this.hockeyButton) {
-            
+            BetView betView = new BetView(this.user, HOCKEY);
+            this.frame.setVisible(false);
         }
         else if (action.getSource() == this.accountButton) {
             this.frame.setVisible(false);
@@ -157,8 +141,7 @@ public class MainMenuView implements ActionListener
             this.frame.dispose();
             
         }
-        else if (action.getSource() == this.logoutButton) {
-            
+        else if (action.getSource() == this.logoutButton) {      
             
             this.frame.setVisible(false);
             new LogInView();
@@ -166,4 +149,15 @@ public class MainMenuView implements ActionListener
             
         }
     }
+    
+    private void processImageForButton(JButton button, String path) {
+        try {
+            Image image = ImageIO.read(getClass().getResource(path));
+            Image scaledImage = image.getScaledInstance(90,90, java.awt.Image.SCALE_SMOOTH);
+            button.setIcon(new ImageIcon(scaledImage));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
 }

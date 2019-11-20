@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Write a description of class LogInView here.
  *
- * Justin Cabral
+ * Justin Cabral/Jonathan Duran
  * 1.0.0
  */
 
@@ -59,11 +59,13 @@ public class LogInView extends Observable implements ActionListener {
         this.frame.setLayout(null);
         this.frame.setVisible(true);
         this.frame.setResizable(false);
+        this.frame.setLocationRelativeTo(null);
+
            
         this.welcomeLabel.setBounds(160,20,300,40);
         this.userNameLabel.setBounds(80,70,200,30);
         this.passwordLabel.setBounds(80,110,200,30);
-        this.messageLabel.setBounds(80,200,300,30);
+        this.messageLabel.setBounds(80,200,400,30);
         
         this.userNameTextField.setBounds(180,70,200,30);
         this.passwordField.setBounds(180,110,200,30);

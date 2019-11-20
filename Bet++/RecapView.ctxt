@@ -1,14 +1,18 @@
 #BlueJ class context
 comment0.target=RecapView
 comment0.text=\n\ Write\ a\ description\ of\ class\ RecapView\ here.\n\n\ @auther\ Justin\ Cabral\n\ @version\ 1.0.0\n
-comment1.params=
-comment1.target=RecapView()
+comment1.params=sportNumber\ betsPlaced\ amountBet\ data
+comment1.target=RecapView(int,\ int,\ double,\ AccountData)
 comment2.params=
 comment2.target=void\ createViews()
 comment3.params=
 comment3.target=void\ setUpViews()
 comment4.params=
 comment4.target=void\ addViews()
-comment5.params=action
-comment5.target=void\ actionPerformed(java.awt.event.ActionEvent)
-numComments=6
+comment5.params=
+comment5.target=double\ simulateBets()
+comment6.params=action
+comment6.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment7.params=min\ max
+comment7.target=int\ getRandomNumberInRange(int,\ int)
+numComments=8

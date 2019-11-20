@@ -22,30 +22,30 @@ public class BetView implements ActionListener
     private JTextField betTextField;
     private JLabel tableTitleLabel, titleLabel, accountLabel, winningsLabel;
     private JButton menuButton,accountButton,sportsButton,betButton, simulateButton;
+    private AccountData userData;
+    private int sportsNumber;
+    private int betsPlaced = 0, betTotal = 0;
     
     // TEMP: Pull data from sports data object to set these values
-    private SportsData sportsData;
+    private SportsData sportsData = new SportsData();
     private String[] tableColumnNames = {"Date","Teams","Points","Odds"};
-    private Object[][] tableRowData = {{"October 20th","Ravens vs.\n Bills","+4 : -4", "-115 : -105"},
-                                       {"October 20th","Saints vs.\n Bears","+4 : -4", "-120 : +100"},
-                                       {"October 20th","Eagles vs.\n Cowboys","+3 : -3", "-115 : -105"},
-                                       {"October 20th","Rams vs.\n Falcons","-3 : +3", "-110 : +110"},
-                                       {"October 21st","Patriots vs.\n Jets","-10 : +10","-105 : +105"},
-                                       {"October 20th","Packers vs Jaguars", "+10  -10","-110 : +110"},
-                                       {"October 10th","Bengals vs 49ers", "-3 : +3", "-105 : +105"}};
+   
     
     /**
      * Constructor for objects of class BetView
      */
-    public BetView()
+    public BetView(AccountData userData, int sportNumber)
     {
+        this.userData = userData;
+        this.sportsNumber = sportNumber;
+        
         this.createViews();
         this.setUpViews();
         this.addViews();
         
     }
     
-    public void createViews() {
+    private void createViews() {
         
         this.frame = new JFrame("Bet++");
 
@@ -54,13 +54,12 @@ public class BetView implements ActionListener
         this.sportsButton = new JButton();
         this.betButton = new JButton("Place Bet");
         this.simulateButton = new JButton("Simulate");
-        
-        this.titleLabel = new JLabel("Betting Lines: Football"); // TEMP: Pass in data from main menu to set this label
-        this.accountLabel = new JLabel("JCabral : $100.00"); // TEMP: Pass in data from Account Data to set this label
+   
+        this.accountLabel = new JLabel(this.userData.getUserName() + " : "+ "$"+ String.format("%.2f", userData.getBalance()));
         this.tableTitleLabel = new JLabel("Date                    Home / Away                     Points                         Odds");
         this.betTextField = new JTextField();
         
-        this.tableModel = new DefaultTableModel(this.tableRowData, this.tableColumnNames) {
+        this.tableModel = new DefaultTableModel(this.sportsData(), this.tableColumnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -72,7 +71,7 @@ public class BetView implements ActionListener
 
     }
     
-    public void setUpViews() {
+    private void setUpViews() {
         
         this.frame.setForeground(Color.blue);
         this.frame.setFont(new Font("Serif", Font.BOLD, 18));
@@ -93,7 +92,7 @@ public class BetView implements ActionListener
         this.tableTitleLabel.setFont(new Font("Serif", Font.BOLD, 16));
         
         this.betTextField.setBounds(200,500,200,30);
-        this.betTextField.setText("0.00");
+        this.betTextField.setText("");
         
         this.table.setBounds(100,180,600,300);
         this.table.setVisible(true);
@@ -106,17 +105,14 @@ public class BetView implements ActionListener
         this.betButton.addActionListener(this);
         this.simulateButton.addActionListener(this);
         
-        try {
-            Image image = ImageIO.read(getClass().getResource("./resources/NFL.png"));
-            Image scaledImage = image.getScaledInstance(90,90, java.awt.Image.SCALE_SMOOTH);
-            this.sportsButton.setIcon(new ImageIcon(scaledImage));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+        if (sportsNumber == 0){ this.processImageForButton(this.sportsButton, "./resources/MLB.png"); }
+        else if (sportsNumber == 1){ this.processImageForButton(this.sportsButton, "./resources/NBA.png"); }
+        else if (sportsNumber == 2){ this.processImageForButton(this.sportsButton, "./resources/NFL.png"); }
+        else if (sportsNumber == 3){ this.processImageForButton(this.sportsButton, "./resources/NHL.png"); }
 
     }
     
-    public void addViews() {
+    private void addViews() {
         this.frame.add(this.menuButton);
         this.frame.add(this.sportsButton);
         this.frame.add(this.betButton);
@@ -129,26 +125,29 @@ public class BetView implements ActionListener
 
     }
     
-    public void loadSportsDataFromFile() {
-    
-    }
     
     public void actionPerformed(ActionEvent action) {
         if (action.getSource() == this.menuButton) {
             
-            MainMenuView menuView = new MainMenuView();
+            MainMenuView menuView = new MainMenuView(this.userData);
             this.frame.setVisible(false);
             
         }
         else if (action.getSource() == this.betButton) {
+            this.placeBet(this.betTextField.getText());
+            this.betTextField.setText("");
         }
         else if (action.getSource() == this.simulateButton) {
-            RecapView recapView = new RecapView();
+            
+            if (this.betsPlaced !=0) {
+                RecapView recapView = new RecapView(this.sportsNumber, this.betsPlaced, this.betTotal, this.userData);
+                this.frame.setVisible(false);
+            }
         }
         
     }
     
-    public void setJTableColumnsWidth(JTable table, int tableWidth, int... widths) {
+    private void setJTableColumnsWidth(JTable table, int tableWidth, int... widths) {
         
         int total = 0;
         TableColumn column = null;
@@ -161,6 +160,47 @@ public class BetView implements ActionListener
             column = table.getColumnModel().getColumn(i);
             column.setPreferredWidth((int) tableWidth * (widths[i] / total));
         }
+    }
+    
+    private Object[][] sportsData() {
+        
+        switch(this.sportsNumber) {
+            case 0:
+                return this.sportsData.getBaseballData();
+            case 1:
+                return this.sportsData.getBasketballData();
+            case 2:
+                return this.sportsData.getFootballData();
+            case 3:
+                return this.sportsData.getHockeyData();
+        }
+        
+        return null;
+    }
+    
+    private void processImageForButton(JButton button, String path) {
+
+        try {
+            Image image = ImageIO.read(getClass().getResource(path));
+            Image scaledImage = image.getScaledInstance(90,90, java.awt.Image.SCALE_SMOOTH);
+            button.setIcon(new ImageIcon(scaledImage));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    private void placeBet(String betTotal) {
+        
+        Double bet = Double.valueOf(betTotal);
+        Double currentBalance = this.userData.getBalance();
+        
+        if (currentBalance != 0) {
+            this.betTotal += bet;
+            this.userData.setBalance(currentBalance - bet);
+            this.accountLabel.setText(this.userData.getUserName() + " : "+ "$"+ String.format("%.2f", userData.getBalance()));
+            this.betsPlaced++;
+        }
+
     }
     
 }

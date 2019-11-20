@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=MainMenuView
+comment0.text=\n\ Write\ a\ description\ of\ class\ MainMenuView\ here.\n\n\ Justin\ Cabral/Jonathan\ Duran\n\ 1.0.0\n
+comment1.params=usr
+comment1.target=MainMenuView(AccountData)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ MainMenuView\n
+comment2.params=usr\ sportsData
+comment2.target=MainMenuView(AccountData,\ SportsData)
+comment3.params=
+comment3.target=void\ createViews()
+comment4.params=
+comment4.target=void\ setUpViews()
+comment5.params=
+comment5.target=void\ addViews()
+comment6.params=action
+comment6.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment7.params=button\ path
+comment7.target=void\ processImageForButton(javax.swing.JButton,\ java.lang.String)
+numComments=8
